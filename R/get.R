@@ -1,22 +1,22 @@
-#' Downloads and formats nClimGrid monthly data 
-#' 
+#' Downloads and formats nClimGrid monthly data
+#'
 #' @param year Year, YYYY format
 #' @param measurement Measurement type (i.e. "tave", "tmax", "tmin", "prcp")
 #' @param region Region (i.e. "conus", "ak")
 #' @param wide Convert to wide format, default is FALSE
 #' @param verbose Verbose, default is FALSE
-#' 
+#'
 #' @return Data frame
-#' 
-#' @importFrom dplyr mutate mutate_all 
+#'
+#' @importFrom dplyr mutate mutate_all
 #' @importFrom tidyr pivot_longer
 #' @importFrom magrittr %<>% %>% set_names
 #' @importFrom glue glue
 get_nclimgrid_monthly <- function(year, measurement = "tave", region = "conus", wide = FALSE, verbose = FALSE) {
-  
+
   #validates inputs and stops if not valid
   progress_msg(verbose, "Validating inputs...")
-  
+
   validate_year(year)
   validate_region(region)
   validate_measurement(measurement)
@@ -25,25 +25,25 @@ get_nclimgrid_monthly <- function(year, measurement = "tave", region = "conus", 
   #column count and names may vary depending when the last month was published, they are numerically named here
   #units are converted from C to F and mm to in as default to match normals data standard
   progress_msg(verbose, "Fetching data from NOAA...")
-  
+
   noaa_url <- glue('https://www.ncei.noaa.gov/pub/data/cirs/climgrid/{year}.{measurement}.{region}.pnt')
-  
+
   nclim_data <- noaa_url %>%
     read.delim(sep = "", header = FALSE) %>%
-    set_names(c("lat", "long", 1:(ncol(.)-2))) %>%  
+    set_names(c("lat", "long", 1:(ncol(.)-2))) %>%
     mutate_at(3:ncol(.), standardize_units, measurement)
-  
+
   #return as is or convert to long format (default option)
   if (!wide) {
-    
+
     progress_msg(verbose, "Converting to long format...")
-    
-    nclim_data %<>% 
-      pivot_longer(names_to = "month", values_to = "value", -c("lat", "long")) %>% 
+
+    nclim_data %<>%
+      pivot_longer(names_to = "month", values_to = "value", -c("lat", "long")) %>%
       mutate(month = factor(month, levels = 1:12))
-    
+
   }
-  
+
   #store metadata as attributes to the data frame
   attr(nclim_data, "year") <- year
   attr(nclim_data, "measurement") <- measurement
@@ -51,62 +51,62 @@ get_nclimgrid_monthly <- function(year, measurement = "tave", region = "conus", 
   attr(nclim_data, "unit") <- ifelse(grepl("^t", measurement), "Fahrenheit", "inches")
   attr(nclim_data, "wide") <- wide
   attr(nclim_data, "anomaly_df") <- FALSE
-  
+
   #finish and return
   progress_msg(verbose, "Done.")
-  
+
   return(nclim_data)
-  
+
 }
 
-#' Downloads and formats nClimGrid normals data 
-#' 
+#' Downloads and formats nClimGrid normals data
+#'
 #' Normals data exist only for predefined periods. To see valid start and end of periods of record, see \code{validate_normals_period()}
-#' 
+#'
 #' @param period Normals period. (i.e. "1901-2000" , "1981-2010", "1991-2020", "2006-2020"). Defaults to "1901-2000" (20th Century)
 #' @param measurement Measurement type (i.e. "tave", "tmax", "tmin", "prcp")
 #' @param region Region (i.e. "conus", "ak")
 #' @param wide Convert to wide format, default is FALSE
 #' @param verbose Verbose, default is FALSE
-#' 
+#'
 #' @return Data frame
-#' 
-#' @importFrom dplyr mutate mutate_all 
+#'
+#' @importFrom dplyr mutate mutate_all
 #' @importFrom tidyr pivot_longer
 #' @importFrom magrittr %<>% %>% set_names
 #' @importFrom glue glue
 get_nclimgrid_normals <- function(period = "1901-2000", measurement = "tave", region = "conus", wide = FALSE, verbose = FALSE) {
-  
+
   #validates inputs and stops if not valid
   progress_msg(verbose, "Validating inputs...")
-  
+
   validate_normals_period(period)
   validate_region(region)
   validate_measurement(measurement)
-  
+
   #build url, download data and convert units
   #file names for normals use "us" for "conus"
   #column count is fixed with 12 months of data
   progress_msg(verbose, "Fetching normals data from NOAA...")
-  
+
   noaa_url <- glue('https://www.ncei.noaa.gov/pub/data/cirs/climgrid/normals/{region}_{measurement}_{period}_normal.dat',
                    region = ifelse(region == "conus", "us", "ak"))
-  
+
   nclim_data <- noaa_url %>%
     read.delim(sep = "", header = FALSE) %>%
     set_names(c("lat", "long", 1:12))
-  
+
   #return as is or convert to long format (default option)
   if (!wide) {
-    
+
     progress_msg(verbose, "Converting to long format...")
-    
-    nclim_data %<>% 
-      pivot_longer(names_to = "month", values_to = "value", -c("lat", "long")) %>% 
+
+    nclim_data %<>%
+      pivot_longer(names_to = "month", values_to = "value", -c("lat", "long")) %>%
       mutate(month = factor(month, levels = 1:12))
-    
+
   }
-  
+
   #store metadata as attributes to the data frame
   attr(nclim_data, "period") <- period
   attr(nclim_data, "measurement") <- measurement
@@ -114,66 +114,68 @@ get_nclimgrid_normals <- function(period = "1901-2000", measurement = "tave", re
   attr(nclim_data, "unit") <- ifelse(grepl("^t", measurement), "Fahrenheit", "inches")
   attr(nclim_data, "wide") <- wide
   attr(nclim_data, "anomaly_df") <- FALSE
-  
+
   #finish and return
   progress_msg(verbose, "Done.")
-  
+
   return(nclim_data)
-  
+
 }
 
 
 #' Compute anomaly from normals
-#' 
-#' @param monthly_data 
-#' @param normals_data
-#' 
+#'
+#' @param monthly_data Data frame with nClimGrid data, generated by \code{get_nclimgrid_monthly()}
+#' @param normals_data Data frame with nClimGrid data, generated by \code{get_nclimgrid_normals()}
+#'
 #' @return Data frame with anomaly
-#' 
+#'
 #' @importFrom dplyr mutate select left_join
 #' @importFrom magrittr %>% %<>% subtract
 compute_anomaly <- function(monthly_data, normals_data) {
-  
+
   #validate that both data frames are similar
   if (attr(monthly_data, "wide") != attr(normals_data, "wide")) {
-    
+
     stop("Both monthly and normals data need to be in the same format, either wide or long")
-    
+
   }
-  
+
   if (attr(monthly_data, "measurement") != attr(normals_data, "measurement")) {
-    
+
     stop("Both monthly and normals data need to have the same measurement type to compute the anomaly (i.e. tave, tmin, tmax, prcp)")
-    
+
   }
-  
+
   if (attr(monthly_data, "region") != attr(normals_data, "region")) {
-    
+
     stop("Both monthly and normals data must be for the same region, either 'conus' or 'ak'")
-    
+
   }
-  
-  
+
+
   #compute delta in wide format or long format
   if (attr(monthly_data, "wide")) {
-    
+
     #pixel counts must match, this error is unlikely to occur
     if (nrow(monthly_data) != nrow(normals_data)) { stop("Number of coordinate pairs differ between monthly and normals data.") }
-    
+
     #build a new data frame with lat long and same columns available in monthly (which may be less months than normals)
-    anomaly <- cbind(monthly_data %>% select(lat, long),
-                     monthly_data %>% 
-                       select(-lat, -long) %>% 
-                       subtract(normals_data %>% select(names(monthly_data), -lat, -long)))
-    
+    anomaly <- monthly_data %>%
+      select(lat, long) %>%
+      cbind(monthly_data %>%
+              select(-lat, -long) %>%
+              subtract(normals_data %>% select(names(monthly_data), -lat, -long)))
+
   } else {
-    
-    anomaly <- left_join(monthly_data, normals_data, by = c("lat", "long", 'month')) %>%
-      mutate(anomaly = value.x - value.y) %>% 
+
+    anomaly <- monthly_data %>%
+      left_join(normals_data, by = c("lat", "long", 'month')) %>%
+      mutate(anomaly = value.x - value.y) %>%
       select(-contains("value"))
-    
+
   }
-  
+
   #set attributes of the data frame based on the inputs
   attr(anomaly, "year") <- attr(monthly_data, "year")
   attr(anomaly, "measurement") <- attr(monthly_data, "measurement")
@@ -181,9 +183,9 @@ compute_anomaly <- function(monthly_data, normals_data) {
   attr(anomaly, "unit") <- attr(monthly_data, "unit")
   attr(anomaly, "wide") <- attr(monthly_data, "wide")
   attr(anomaly, "anomaly_df") <- TRUE
-  
+
   return(anomaly)
-  
+
 }
 
 
