@@ -177,3 +177,15 @@ list_nclimgrid_archive_files <- function(date_pattern = '*') {
     unique
 
 }
+
+
+#' Read the individual files inside a nClimGrid .tar.gz archive file
+#'
+#' @param file_url URL to .tar.gz file
+#'
+#' @return List of data frames with file contents
+read_nclimgrid_archive_files <- function(file_url) {
+
+  return()
+
+}
