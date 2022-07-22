@@ -129,7 +129,7 @@ standardize_units <- function(values, measurement) {
 
 #' Print progress messages depending on verbose option
 #'
-#' @param verbose
+#' @param verbose TRUE or FALSE
 #' @param string Message to print if verbose is TRUE
 #'
 progress_msg <- function(verbose, string) {

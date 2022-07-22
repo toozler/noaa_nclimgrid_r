@@ -8,7 +8,6 @@
 #' @param title Optional plot title. A default plot title is generated based on the data type in nclimgrid_data
 #' @param subtitle  Optional plot title. A default plot title is generated based on the data type in nclimgrid_data
 #' @param show_credit Show caption with dataset credit to NOAA, default is TRUE
-#' @param
 #'
 #' @return Returns a ggplot object
 #'

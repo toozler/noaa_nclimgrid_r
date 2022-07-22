@@ -10,6 +10,6 @@ validate_year(year)
 \item{year}{Year, YYYY format}
 }
 \description{
-nClimGrid stores the current and previous year only, other years are stored in a different format 
+nClimGrid stores the current and previous year only, other years are stored in a different format
 and in another location - this script currently doesn't support fetching the archived years
 }

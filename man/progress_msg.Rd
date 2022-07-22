@@ -7,7 +7,7 @@
 progress_msg(verbose, string)
 }
 \arguments{
-\item{verbose}{}
+\item{verbose}{TRUE or FALSE}
 
 \item{string}{Message to print if verbose is TRUE}
 }

@@ -2,7 +2,7 @@
 % Please edit documentation in R/utils.R
 \name{standardize_units}
 \alias{standardize_units}
-\title{Standardizes the units from monthly nClimGrid datasets (C and mm) 
+\title{Standardizes the units from monthly nClimGrid datasets (C and mm)
 to the same units used by the normal historical averages (F and in)}
 \usage{
 standardize_units(values, measurement)
@@ -16,6 +16,6 @@ standardize_units(values, measurement)
 Values in standard units
 }
 \description{
-Standardizes the units from monthly nClimGrid datasets (C and mm) 
+Standardizes the units from monthly nClimGrid datasets (C and mm)
 to the same units used by the normal historical averages (F and in)
 }
