@@ -132,3 +132,25 @@ plot_title_builder <- function(nclimgrid_data) {
   return("")
 
 }
+
+
+#' Plot distribution comparison
+#'
+#' For a list of nClimGrid data frames, plot the distributions. Option to facet and subset by month
+#'
+plot_measurement_distributions <- function(nclimgrid_df_list,
+                                           subset_months = 1:12,
+                                           facet_cols = 2) {
+
+  #get labels for each data frame in list
+  #check if wide or long
+  #check if same measurement type (at least must be temp or prcp)
+  #check if anomaly or not, must be same to be comparable
+  #stack dfs, append labels from previous step as a column
+
+  #one measurement
+  #m_tave %>% ggplot() + geom_histogram(aes(x=value, fill=..x..)) + facet_wrap(~month, labeller = labeller(month = month_to_name)) + scale_fill_distiller(palette = "RdYlBu", name = "°F") + theme_minimal()
+
+  #mirror plot with two measuremts
+  # ggplot() + geom_histogram(data = m_tave, aes(x=value, y=..density.., fill=..x..), bins = 50) + geom_histogram(data = n_tave, aes(x=value, y=-..density.., fill=..x..), bins = 50) + facet_wrap(~month, labeller = labeller(month = month_to_name)) + scale_fill_distiller(palette = "RdYlBu", name = "°F") + theme_minimal() + coord_flip() + geom_hline(yintercept=0, col='white') + labs(title = "normal (left) vs measurement (right)")
+}

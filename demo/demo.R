@@ -1,5 +1,5 @@
 # testing
-m_tave <- get_nclimgrid_monthly(2022, "tave", "conus", wide = FALSE, verbose = TRUE)
+m_tave <- get_nclimgrid_monthly(2021, "tave", "conus", wide = FALSE, verbose = TRUE)
 n_tave <- get_nclimgrid_normals("1901-2000", "tave", "conus", wide = FALSE, verbose = TRUE)
 a_tave <- compute_anomaly(m_tave, n_tave)
 
