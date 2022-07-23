@@ -33,6 +33,7 @@ plot_measurement_data <- function(nclim_data,
   color_scales <- define_color_scale(measurement = attr(nclim_data, "measurement"), anomaly = FALSE)
 
   #optional states and county outlines
+  #TODO: add Alaska outline if region=='ak'
   state_outlines <- county_outlines <- NULL
 
   if (show_states) {

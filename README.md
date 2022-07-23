@@ -10,16 +10,22 @@ U.S. Climate Gridded Dataset
 ([NClimGrid](https://www.ncei.noaa.gov/access/metadata/landing-page/bin/iso?id=gov.noaa.ncdc:C00332)).
 This package is not created or maintained by NOAA.
 
-  - `get_nclimgrid_monthly()` (add description)
-  - `get_nclimgrid_normals()` (add description)
-  - `compute_anomaly()` (add description)
+  - `get_nclimgrid_monthly()` Downloads and formats nClimGrid monthly
+    data for recent years
+  - `get_nclimgrid_normals()` Downloads and formats nClimGrid normals
+    data for ranges of period of record
+  - `compute_anomaly()` Computes the difference between two datasets of
+    the same measurement type
 
 Some plotting functions are included to visualize measurements and
 anomalies:
 
-  - `plot_nclimgrid_monthly()` (add description)
-  - `plot_nclimgrid_anomaly()` (add description)
-  - `plot_nclimgrid_distribution()` (add description)
+  - `plot_nclimgrid_monthly()` Creates a monthly faceted plot of
+    measurement values, either monthly or normals
+  - `plot_nclimgrid_anomaly()` Creates a monthly faceted binned anomaly
+    plot
+  - `plot_nclimgrid_distribution()` Creates a histogram (if evaluating
+    one dataset) or mirrored distribution (if comparing two datasets)
 
 ## Installation
 
@@ -39,9 +45,12 @@ The `get_nclimgrid_*()` functions fetch this data and perform some basic
 parsing:
 
 ``` r
-nclim_monthly_data <- get_nclimgrid_monthly(year = 2021, measurement = "tave", region = "conus", wide = FALSE, verbose = FALSE)
-
-str(nclim_monthly_data)
+nclim_monthly_data <- get_nclimgrid_monthly(year = 2021, 
+                                            measurement = "tave", 
+                                            region = "conus", 
+                                            wide = FALSE, 
+                                            verbose = FALSE)
+nclim_monthly_data %>% str
 #> tibble [5,637,096 × 4] (S3: tbl_df/tbl/data.frame)
 #>  $ lat  : num [1:5637096] 24.6 24.6 24.6 24.6 24.6 ...
 #>  $ long : num [1:5637096] -81.8 -81.8 -81.8 -81.8 -81.8 ...
@@ -56,17 +65,20 @@ str(nclim_monthly_data)
 ```
 
 The example above pulls average temperature (“tave”) for the Continental
-US (“conus”) in 2021. Available datasets include also “tmin” (minimum
-temperatures), “tmax” (maximum temperatures) and “prcp” (precipitation).
-More details about the nClimGrid dataset are available
+US (“conus”) in 2021. Available datasets include also “`tmin`” (minimum
+temperatures), “`tmax`” (maximum temperatures) and “`prcp`”
+(precipitation). More details about the nClimGrid dataset are available
 [here](https://www.ncei.noaa.gov/access/metadata/landing-page/bin/iso?id=gov.noaa.ncdc:C00332).
 As default, the data frame is converted to a long format for easier
-integration with [tidyverse](http://tidyverse.org/) packages.
+integration with [tidyverse](http://tidyverse.org/) packages. Metadate
+is stored in each data frame as attributes.
 
 ``` r
-nclim_normals_data <- get_nclimgrid_normals(period = "1901-2000", measurement = "tave", region = "conus")
+nclim_normals_data <- get_nclimgrid_normals(period = "1901-2000", 
+                                            measurement = "tave", 
+                                            region = "conus")
 
-str(nclim_normals_data)
+nclim_normals_data %>% str
 #> tibble [5,637,096 × 4] (S3: tbl_df/tbl/data.frame)
 #>  $ lat  : num [1:5637096] 24.6 24.6 24.6 24.6 24.6 ...
 #>  $ long : num [1:5637096] -81.8 -81.8 -81.8 -81.8 -81.8 ...
@@ -124,7 +136,11 @@ plot_measurement_data(nclim_monthly_data,
 
 <img src="man/figures/README-examplegraph1-1.png" width="100%" />
 
+Anomalies can be visualized by plotting the output of
+`compute_anomaly()`. The output of each plotting function is a `ggplot2`
+object, which allows you can tack on additional `geoms`
+
 You can visualize measurement values from monthly or normals with
 `plot_nclimgrid_distribution()`.
 
-<img src="man/figures/README-examplegraph2-1.png" width="100%" />
+<img src="man/figures/README-examplegraph3-1.png" width="100%" />
