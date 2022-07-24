@@ -59,3 +59,6 @@ a_p %>%
   filter(month %in% 6) %>%
   plot_nclimgrid()
 
+
+
+#create .rds with pixels by state (intersect nclimgrid grid with maps polygons and store  )

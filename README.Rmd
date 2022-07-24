@@ -1,6 +1,5 @@
 ---
 output: github_document
-
 ---
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
@@ -25,11 +24,15 @@ library(stringr)
 devtools::load_all()
 ```
 
-# noaaclimgrid <img src='man/figures/package_temp_icon.png' align="right" height="176" />
+# noaaclimgrid <img src='man/figures/package_temp_icon.png' align="right" height="106" />
 
 ## Overview
 
-R tools to fetch and visualize [NOAA's][noaa] Monthly U.S. Climate Gridded Dataset ([NClimGrid][nclimgrid]). This package is not created or maintained by NOAA. 
+R tools to fetch and visualize [NOAA's][noaa] Monthly U.S. Climate Gridded Dataset ([NClimGrid][nclimgrid]): 
+
+> The NOAA Monthly U.S. Climate Gridded Dataset (NClimGrid) consists of four climate variables derived from the GHCN-D dataset: maximum temperature, minimum temperature, average temperature and precipitation. Each file provides monthly values in a 5x5 lat/lon grid for the Continental United States. Data is available from 1895 to the present.
+
+Basic functions include:
 
 * `get_nclimgrid_monthly()` Downloads and formats nClimGrid monthly data for recent years
 * `get_nclimgrid_normals()` Downloads and formats nClimGrid normals data for ranges of period of record
@@ -40,6 +43,7 @@ Some plotting functions are included to visualize measurements and anomalies:
 * `plot_nclimgrid()` Creates a monthly faceted plot of measurement (either monthly or normals) or anomaly
 * `plot_nclimgrid_histogram()` Creates a histogram (if evaluating one dataset) or mirrored histogram (if comparing two datasets)
 
+This package is not created or maintained by NOAA. 
 
 ## Installation
 
