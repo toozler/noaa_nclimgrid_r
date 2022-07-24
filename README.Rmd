@@ -25,7 +25,7 @@ library(stringr)
 devtools::load_all()
 ```
 
-<!-- # noaaclimgrid <img src='man/figures/logo.png' align="right" height="139" /> -->
+# noaaclimgrid <img src='man/figures/package_temp_icon.png' align="right" height="176" />
 
 ## Overview
 
@@ -37,7 +37,7 @@ R tools to fetch and visualize [NOAA's][noaa] Monthly U.S. Climate Gridded Datas
 
 Some plotting functions are included to visualize measurements and anomalies:
 
-* `plot_nclimgrid()` Creates a monthly faceted plot of measurement (either monthly or normals) or anomaly plots
+* `plot_nclimgrid()` Creates a monthly faceted plot of measurement (either monthly or normals) or anomaly
 * `plot_nclimgrid_histogram()` Creates a histogram (if evaluating one dataset) or mirrored histogram (if comparing two datasets)
 
 
@@ -120,9 +120,9 @@ large_us_capitals <- maps::us.cities %>%
 
 nclim_monthly_prcp_data %>%
   filter(month %in% 7) %>%
-  plot_nclimgrid(show_credit = F) +
+  plot_nclimgrid(show_credit = F, show_states = F) +
   geom_point(data = large_us_capitals, aes(x=long, y=lat)) +
-  geom_label_repel(data = large_us_capitals, aes(x=long, y=lat, label=name), 
+  geom_label_repel(data = large_us_capitals, aes(x=long, y=lat, label=name),
                     box.padding = 1, segment.alpha = 0.5, size = 3) +
   labs(title = NULL, 
        subtitle = NULL) +
@@ -134,7 +134,7 @@ nclim_monthly_prcp_data %>%
 
 You can visualize and compare the distribution of values from monthly or normals datasets with `plot_nclimgrid_histogram()`. 
 
-```{r examplegraph4, echo=FALSE, fig.height=7}
+```{r examplegraph4, echo=FALSE, fig.height=6}
 ggplot() + geom_histogram(data = nclim_monthly_data, aes(x=value, y=..density.., fill=..x..), bins = 50) + geom_histogram(data = nclim_normals_data, aes(x=value, y=-..density.., fill=..x..), bins = 50) + facet_wrap(~month, ncol = 3, labeller = labeller(month = month_to_name)) + scale_fill_distiller(palette = "RdYlBu", name = "°F") + theme_minimal() + coord_flip() + geom_hline(yintercept=0, col='white') + labs(title = "20th Century (left) vs 2021 (right) Temperatures", x="", y="")
 ```
 

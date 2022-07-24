@@ -36,12 +36,14 @@ plot_nclimgrid <- function(nclimgrid_data,
     nclimgrid_data %<>% mutate(value = cut(value, breaks = color_scales$breaks, include.lowest = TRUE))
   }
 
-  #optional states and county outlines
+  #optional states and county outlines.
   #TODO: add Alaska outline if region=='ak'
   state_outlines <- county_outlines <- NULL
 
   if (show_states) {
     state_outlines <- geom_polygon(data = map_data("state"), aes(x = long, y = lat, group = group), color = "black", fill=NA, size=0.1)
+  } else {
+    state_outlines <- geom_polygon(data = map_data("usa"), aes(x = long, y = lat, group = group), color = "black", fill=NA, size=0.1)
   }
 
   if (show_counties) {

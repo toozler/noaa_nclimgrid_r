@@ -1,7 +1,7 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-<!-- # noaaclimgrid <img src='man/figures/logo.png' align="right" height="139" /> -->
+# noaaclimgrid <img src='man/figures/package_temp_icon.png' align="right" height="176" />
 
 ## Overview
 
@@ -21,7 +21,7 @@ Some plotting functions are included to visualize measurements and
 anomalies:
 
   - `plot_nclimgrid()` Creates a monthly faceted plot of measurement
-    (either monthly or normals) or anomaly plots
+    (either monthly or normals) or anomaly
   - `plot_nclimgrid_histogram()` Creates a histogram (if evaluating one
     dataset) or mirrored histogram (if comparing two datasets)
 
@@ -156,9 +156,9 @@ large_us_capitals <- maps::us.cities %>%
 
 nclim_monthly_prcp_data %>%
   filter(month %in% 7) %>%
-  plot_nclimgrid(show_credit = F) +
+  plot_nclimgrid(show_credit = F, show_states = F) +
   geom_point(data = large_us_capitals, aes(x=long, y=lat)) +
-  geom_label_repel(data = large_us_capitals, aes(x=long, y=lat, label=name), 
+  geom_label_repel(data = large_us_capitals, aes(x=long, y=lat, label=name),
                     box.padding = 1, segment.alpha = 0.5, size = 3) +
   labs(title = NULL, 
        subtitle = NULL) +
