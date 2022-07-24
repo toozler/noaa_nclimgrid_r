@@ -171,8 +171,8 @@ compute_anomaly <- function(monthly_data, normals_data) {
 
     anomaly <- monthly_data %>%
       left_join(normals_data, by = c("lat", "long", 'month')) %>%
-      mutate(anomaly = value.x - value.y) %>%
-      select(-contains("value"))
+      mutate(value = value.x - value.y) %>%
+      select(-contains("value."))
 
   }
 

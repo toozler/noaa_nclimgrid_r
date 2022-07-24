@@ -4,7 +4,7 @@
 \alias{define_color_scale}
 \title{Define bins breaks and color scales to closely match NOAA's standard plots}
 \usage{
-define_color_scale(measurement, anomaly = FALSE)
+define_color_scale(nclimgrid_data)
 }
 \arguments{
 \item{measurement}{Measurement type (i.e. tave, tmax, tmin, prcp)}

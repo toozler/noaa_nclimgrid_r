@@ -2,7 +2,7 @@
 % Please edit documentation in R/plot.R
 \name{plot_title_builder}
 \alias{plot_title_builder}
-\title{Based on attributes of the nclim_data data frame, generate a default title and subtitle for the plots}
+\title{Based on attributes of the nclimgrid_data data frame, generate a default title and subtitle for the plots}
 \usage{
 plot_title_builder(nclimgrid_data)
 }
@@ -13,5 +13,5 @@ plot_title_builder(nclimgrid_data)
 List with $title and $subtitle
 }
 \description{
-Based on attributes of the nclim_data data frame, generate a default title and subtitle for the plots
+Based on attributes of the nclimgrid_data data frame, generate a default title and subtitle for the plots
 }

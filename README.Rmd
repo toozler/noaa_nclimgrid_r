@@ -37,8 +37,7 @@ R tools to fetch and visualize [NOAA's][noaa] Monthly U.S. Climate Gridded Datas
 
 Some plotting functions are included to visualize measurements and anomalies:
 
-* `plot_nclimgrid_monthly()` Creates a monthly faceted plot of measurement values, either monthly or normals
-* `plot_nclimgrid_anomaly()` Creates a monthly faceted binned anomaly plot
+* `plot_nclimgrid()` Creates a monthly faceted plot of measurement (either monthly or normals) or anomaly plots
 * `plot_nclimgrid_distribution()` Creates a histogram (if evaluating one dataset) or mirrored distribution (if comparing two datasets)
 
 
@@ -65,7 +64,7 @@ nclim_monthly_data <- get_nclimgrid_monthly(year = 2021,
 nclim_monthly_data %>% str
 ```
 
-The example above pulls average temperature ("tave") for the Continental US ("conus") in 2021. Available datasets include also "`tmin`" (minimum temperatures), "`tmax`" (maximum temperatures) and "`prcp`" (precipitation). More details about the nClimGrid dataset are available [here][nclimgrid]. As default, the data frame is converted to a long format for easier integration with [tidyverse][tidyverse] packages. Metadate is stored in each data frame as attributes.
+The example above pulls average temperature ("tave") for the Continental US ("conus") in 2021. Available datasets include also "`tmin`" (minimum temperatures), "`tmax`" (maximum temperatures) and "`prcp`" (precipitation). More details about the nClimGrid dataset are available [here][nclimgrid]. As default, the data frame is converted to a long format for easier integration with [tidyverse][tidyverse] packages. Metadata is stored in each data frame as attributes.
 
 ```{r example2, cache=TRUE}
 nclim_normals_data <- get_nclimgrid_normals(period = "1901-2000", 
