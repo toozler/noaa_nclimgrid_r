@@ -3,6 +3,7 @@
 import(ggplot2)
 importFrom(RColorBrewer,brewer.pal)
 importFrom(RCurl,getURL)
+importFrom(dplyr,case_when)
 importFrom(dplyr,left_join)
 importFrom(dplyr,mutate)
 importFrom(dplyr,mutate_all)

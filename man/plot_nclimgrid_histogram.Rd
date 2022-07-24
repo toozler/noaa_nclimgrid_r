@@ -4,8 +4,8 @@
 \alias{plot_nclimgrid_histogram}
 \title{Plot distribution comparison}
 \usage{
-plot_nclimgrid_histogram(nclimgrid_df_list, facet_cols = 2)
+plot_nclimgrid_histogram(nclimgrid_data, ..., facet_cols = 2)
 }
 \description{
-For a list of nClimGrid data frames, plot the distributions. Option to facet and subset by month
+For a list of nClimGrid data frames, plot the distributions
 }

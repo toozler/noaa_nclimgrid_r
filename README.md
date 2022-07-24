@@ -20,17 +20,14 @@ This package is not created or maintained by NOAA.
 Some plotting functions are included to visualize measurements and
 anomalies:
 
-  - `plot_nclimgrid_monthly()` Creates a monthly faceted plot of
-    measurement values, either monthly or normals
-  - `plot_nclimgrid_anomaly()` Creates a monthly faceted binned anomaly
-    plot
-  - `plot_nclimgrid_distribution()` Creates a histogram (if evaluating
-    one dataset) or mirrored distribution (if comparing two datasets)
+  - `plot_nclimgrid()` Creates a monthly faceted plot of measurement
+    (either monthly or normals) or anomaly plots
+  - `plot_nclimgrid_histogram()` Creates a histogram (if evaluating one
+    dataset) or mirrored histogram (if comparing two datasets)
 
 ## Installation
 
 ``` r
-
 # Development version from GitHub:
 devtools::install_github("toozler/noaa_nclimgrid_r")
 ```
@@ -64,32 +61,19 @@ nclim_monthly_data %>% str
 #>  - attr(*, "anomaly_df")= logi FALSE
 ```
 
-The example above pulls average temperature (“tave”) for the Continental
-US (“conus”) in 2021. Available datasets include also “`tmin`” (minimum
-temperatures), “`tmax`” (maximum temperatures) and “`prcp`”
-(precipitation). More details about the nClimGrid dataset are available
+The example above pulls average temperature (`tave`) for the Continental
+US (`conus`) in 2021. Available datasets include also `tmin` (minimum
+temperatures), `tmax` (maximum temperatures) and `prcp` (precipitation).
+More details about the nClimGrid dataset are available
 [here](https://www.ncei.noaa.gov/access/metadata/landing-page/bin/iso?id=gov.noaa.ncdc:C00332).
 As default, the data frame is converted to a long format for easier
-integration with [tidyverse](http://tidyverse.org/) packages. Metadate
+integration with [tidyverse](http://tidyverse.org/) packages. Metadata
 is stored in each data frame as attributes.
 
 ``` r
 nclim_normals_data <- get_nclimgrid_normals(period = "1901-2000", 
                                             measurement = "tave", 
                                             region = "conus")
-
-nclim_normals_data %>% str
-#> tibble [5,637,096 × 4] (S3: tbl_df/tbl/data.frame)
-#>  $ lat  : num [1:5637096] 24.6 24.6 24.6 24.6 24.6 ...
-#>  $ long : num [1:5637096] -81.8 -81.8 -81.8 -81.8 -81.8 ...
-#>  $ month: Factor w/ 12 levels "1","2","3","4",..: 1 2 3 4 5 6 7 8 9 10 ...
-#>  $ value: num [1:5637096] 69.4 70 72.6 76.3 79.6 ...
-#>  - attr(*, "period")= chr "1901-2000"
-#>  - attr(*, "measurement")= chr "tave"
-#>  - attr(*, "region")= chr "conus"
-#>  - attr(*, "unit")= chr "Fahrenheit"
-#>  - attr(*, "wide")= logi FALSE
-#>  - attr(*, "anomaly_df")= logi FALSE
 ```
 
 The above example will pull the normals (typical values) for a given set
@@ -101,12 +85,12 @@ is used. Other available periods can be listed with
 tave_anomaly <- compute_anomaly(monthly_data = nclim_monthly_data, 
                                 normals_data = nclim_normals_data)
 
-str(tave_anomaly)
+tave_anomaly %>% str
 #> tibble [5,637,096 × 4] (S3: tbl_df/tbl/data.frame)
-#>  $ lat    : num [1:5637096] 24.6 24.6 24.6 24.6 24.6 ...
-#>  $ long   : num [1:5637096] -81.8 -81.8 -81.8 -81.8 -81.8 ...
-#>  $ month  : Factor w/ 12 levels "1","2","3","4",..: 1 2 3 4 5 6 7 8 9 10 ...
-#>  $ anomaly: num [1:5637096] 0.128 5.434 3.588 2.816 1.442 ...
+#>  $ lat  : num [1:5637096] 24.6 24.6 24.6 24.6 24.6 ...
+#>  $ long : num [1:5637096] -81.8 -81.8 -81.8 -81.8 -81.8 ...
+#>  $ month: Factor w/ 12 levels "1","2","3","4",..: 1 2 3 4 5 6 7 8 9 10 ...
+#>  $ value: num [1:5637096] 0.128 5.434 3.588 2.816 1.442 ...
 #>  - attr(*, "year")= num 2021
 #>  - attr(*, "measurement")= chr "tave"
 #>  - attr(*, "region")= chr "conus"
@@ -123,24 +107,76 @@ the year).
 
 ### Visualization
 
-You can visualize measurement values from monthly or normals with
-`plot_nclimgrid_monthly()`.
+You can visualize nClimGrid data with `plot_nclimgrid()`. The month
+column is automatically faceted as only one month can be displayed per
+each map. Values are automatically labelled with the month’s name. A
+default title and subtitle (where applicable) is generated based on the
+data being plotted.
 
 ``` r
-plot_measurement_data(nclim_monthly_data, 
-                      facet_cols = 1, 
-                      subset_months = 2:4, 
-                      title = "Average Temperature", subtitle = "Continental US, 2021", 
-                      show_credit = T)
+nclim_monthly_data %>% 
+  filter(month %in% 2:3) %>% 
+  plot_nclimgrid(facet_cols = 1, 
+                 show_credit = T)
 ```
 
 <img src="man/figures/README-examplegraph1-1.png" width="100%" />
 
 Anomalies can be visualized by plotting the output of
-`compute_anomaly()`. The output of each plotting function is a `ggplot2`
-object, which allows you can tack on additional `geoms`
+`compute_anomaly()`.
 
-You can visualize measurement values from monthly or normals with
-`plot_nclimgrid_distribution()`.
+``` r
+temperature_anomaly <- compute_anomaly(nclim_monthly_data, 
+                                       nclim_normals_data)
+
+temperature_anomaly %>% 
+  filter(month %in% 1:4) %>% 
+  plot_nclimgrid(facet_col = 2)
+```
+
+<img src="man/figures/README-examplegraph2-1.png" width="100%" />
+
+The output of the plotting function is a `ggplot2` object, which allows
+you tack on additional `geoms` (i.e. to add features like points and
+labels), to remove features (i.e. remove titles and facet labels) or to
+modify features (i.e. theme options):
+
+``` r
+require(maps)
+#> Loading required package: maps
+require(ggrepel)
+#> Loading required package: ggrepel
+
+nclim_monthly_prcp_data <- get_nclimgrid_monthly(year = 2021, 
+                                                 measurement = "prcp", 
+                                                 region = "conus")
+large_us_capitals <- maps::us.cities %>% 
+  filter(capital != 0, pop >= 400000) %>% 
+  mutate(name = gsub(" ", ", ", name))
+
+nclim_monthly_prcp_data %>%
+  filter(month %in% 7) %>%
+  plot_nclimgrid(show_credit = F) +
+  geom_point(data = large_us_capitals, aes(x=long, y=lat)) +
+  geom_label_repel(data = large_us_capitals, aes(x=long, y=lat, label=name), 
+                    box.padding = 1, segment.alpha = 0.5, size = 3) +
+  labs(title = NULL, 
+       subtitle = NULL) +
+  theme_void() +
+  theme(legend.position = 'none', 
+        strip.text = element_blank())
+```
 
 <img src="man/figures/README-examplegraph3-1.png" width="100%" />
+
+You can visualize and compare the distribution of values from monthly or
+normals datasets with `plot_nclimgrid_histogram()`.
+
+<img src="man/figures/README-examplegraph4-1.png" width="100%" />
+
+## Future features
+
+  - Subset data by state or region
+  - Fetch data from nClimGrid’s
+    [archive]( "https://www.ncei.noaa.gov/pub/data/climgrid/") of
+    monthly data from 1895 onwards.
