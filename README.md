@@ -91,9 +91,15 @@ of available periods of record. By default, “1901-2000” (20th Century)
 is used. Other available periods can be listed with
 `validate_normals_period()`
 
+Same measurement type datasets (i.e. temperature or precipitation) can
+be compared by using the `compute_anomaly()` function, which returns the
+difference between the two datasets. Months not present on the LHS are
+not included (i.e. your monthly measurements only cover a few months of
+the year).
+
 ``` r
-tave_anomaly <- compute_anomaly(monthly_data = nclim_monthly_data, 
-                                normals_data = nclim_normals_data)
+tave_anomaly <- compute_anomaly(nclimgrid_data_a =  nclim_monthly_data, 
+                                nclimgrid_data_b = nclim_normals_data)
 
 tave_anomaly %>% str
 #> tibble [5,637,096 × 4] (S3: tbl_df/tbl/data.frame)
@@ -108,12 +114,6 @@ tave_anomaly %>% str
 #>  - attr(*, "wide")= logi FALSE
 #>  - attr(*, "anomaly_df")= logi TRUE
 ```
-
-Same measurement type datasets (i.e. temperature or precipitation) can
-be compared by using the `compute_anomaly()` function, which returns the
-difference between the two datasets. Months not present on the LHS are
-not included (i.e. your monthly measurements only cover a few months of
-the year).
 
 ### Visualization
 
@@ -169,7 +169,7 @@ nclim_monthly_prcp_data %>%
   plot_nclimgrid(show_credit = F, show_states = F) +
   geom_point(data = large_us_capitals, aes(x=long, y=lat)) +
   geom_label_repel(data = large_us_capitals, aes(x=long, y=lat, label=name),
-                    box.padding = 1, segment.alpha = 0.5, size = 3) +
+                    box.padding = 1, segment.alpha = 0.5, size = 2.5) +
   labs(title = NULL, 
        subtitle = NULL) +
   theme_void() +
@@ -179,8 +179,8 @@ nclim_monthly_prcp_data %>%
 
 <img src="man/figures/README-examplegraph3-1.png" width="100%" />
 
-You can visualize and compare the distribution of values from monthly or
-normals datasets with `plot_nclimgrid_histogram()`.
+You can visualize and compare the distribution of values from monthly,
+normals or anomaly datasets with `plot_nclimgrid_histogram()`.
 
 <img src="man/figures/README-examplegraph4-1.png" width="100%" />
 
@@ -190,3 +190,6 @@ normals datasets with `plot_nclimgrid_histogram()`.
   - Fetch data from nClimGrid’s
     [archive]( "https://www.ncei.noaa.gov/pub/data/climgrid/") of
     monthly data from 1895 onwards.
+  - Option to compute anomaly also as a percentage
+  - Function to compute ranks based on normal percentiles - this dataset
+    is not readily available at NCIS.
