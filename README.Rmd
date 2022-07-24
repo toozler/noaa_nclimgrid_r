@@ -24,7 +24,7 @@ library(stringr)
 devtools::load_all()
 ```
 
-# noaaclimgrid <img src='man/figures/package_temp_icon.png' align="right" height="106" />
+# noaanclimgrid <img src='man/figures/package_temp_icon.png' align="right" height="106" />
 
 ## Overview
 
@@ -80,13 +80,13 @@ The above example will pull the normals (typical values) for a given set of avai
 Same measurement type datasets (i.e. temperature or precipitation) can be compared by using the `compute_anomaly()` function, which returns the difference between the two datasets. Months not present on the LHS are not included (i.e. your monthly measurements only cover a few months of the year). 
 
 ```{r example3}
-tave_anomaly <- compute_anomaly(nclimgrid_data_a =  nclim_monthly_data, 
+tave_anomaly <- compute_anomaly(nclimgrid_data_a = nclim_monthly_data, 
                                 nclimgrid_data_b = nclim_normals_data)
 
 tave_anomaly %>% str
 ```
 
-
+  
 ### Visualization
 
 You can visualize nClimGrid data with `plot_nclimgrid()`. The month column is automatically faceted as only one month can be displayed per each map. Values are automatically labelled with the month's name. A default title and subtitle (where applicable) is generated based on the data being plotted.
