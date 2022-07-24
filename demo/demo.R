@@ -16,8 +16,12 @@ a_tave %>%
   plot_nclimgrid()
 
 
+plot_nclimgrid_histogram(m_tave, n_tave)
+
+plot_nclimgrid_histogram(a_tave)
+
 #testing tmax
-m_tmax <- get_nclimgrid_monthly(2022, "tmax", "conus", wide = FALSE, verbose = TRUE)
+m_tmax <- get_nclimgrid_monthly(2021, "tmax", "conus", wide = FALSE, verbose = TRUE)
 n_tmax <- get_nclimgrid_normals("1901-2000", "tmax", "conus", wide = FALSE, verbose = TRUE)
 a_tmax <- compute_anomaly(m_tmax, n_tmax)
 
@@ -60,5 +64,8 @@ a_p %>%
   plot_nclimgrid()
 
 
+plot_nclimgrid_histogram(m_p, n_p)
+
+plot_nclimgrid_histogram(a_p)
 
 #create .rds with pixels by state (intersect nclimgrid grid with maps polygons and store  )

@@ -146,6 +146,8 @@ ggplot() + geom_histogram(data = nclim_monthly_data, aes(x=value, y=..density..,
 
 * Subset data by state or region
 * Fetch data from nClimGrid's [archive][nclimgridarchive] of monthly data from 1895 onwards.
+* Option to compute anomaly also as a percentage
+* Function to compute ranks based on normal percentiles - this dataset is not readily available at NCIS.
 
 [tidyverse]: http://tidyverse.org/
 [noaa]: https://www.noaa.gov
