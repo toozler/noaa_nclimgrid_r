@@ -90,7 +90,6 @@ t_rank_names <- data.frame(cat = 1:7,
                                          "Record Warmest"))
 
 rks %>%
-  #left_join(rank_names, by = "cat") %>%
   ggplot() +
   geom_raster(aes(x = lon, y = lat, fill = as.factor(cat))) +
   scale_fill_manual(values = rev(brewer.pal(7, "RdBu")),
@@ -106,7 +105,7 @@ rks %>%
 
 
 
-prcp_rks <- 'https://www.ncei.noaa.gov/pub/data/cirs/climgrid/us_prcp_3mo.dat' %>%
+  prcp_rks <- 'https://www.ncei.noaa.gov/pub/data/cirs/climgrid/us_prcp_1mo.dat' %>%
   read.delim(header=T, sep="")
 
 prcp_rank_names <- data.frame(cat = 0:7,
@@ -132,4 +131,5 @@ prcp_rks %>%
   geom_polygon(data = map_data("state"), aes(x = long, y = lat, group = group), color = "black", fill=NA, size=0.1) +
   labs(x=NULL, y=NULL) +
   theme(legend.position = 'bottom') +
-  guides(fill = guide_legend(nrow = 1))
+  guides(fill = guide_legend(nrow = 1)) +
+  coord_quickmap(xlim = c(-110,-90), ylim =c(26.5,40))

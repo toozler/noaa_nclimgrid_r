@@ -151,6 +151,15 @@ month_to_name <- function(m) {
 }
 
 
+#' Accumulate months
+#'
+#' @param nclimgrid_data
+#' @param months
+#' @param fun
+#'
+#' TODO
+
+
 #' List files from nClimGrid archive (years before current and previous)
 #'
 #' These files can't be guessed based on YYYYMM because they have a variable file name containg a publishing date
