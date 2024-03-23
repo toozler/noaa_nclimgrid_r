@@ -54,7 +54,7 @@ parsing:
 ``` r
 nclim_monthly_data <- get_nclimgrid_monthly(year = 2021, 
                                             measurement = "tave", 
-                                            region = "conus", 
+                                            region = "us", 
                                             wide = FALSE, 
                                             verbose = FALSE)
 nclim_monthly_data %>% str
@@ -65,14 +65,14 @@ nclim_monthly_data %>% str
 #>  $ value: num [1:5637096] 69.5 75.4 76.2 79.1 81 ...
 #>  - attr(*, "year")= num 2021
 #>  - attr(*, "measurement")= chr "tave"
-#>  - attr(*, "region")= chr "conus"
+#>  - attr(*, "region")= chr "us"
 #>  - attr(*, "unit")= chr "Fahrenheit"
 #>  - attr(*, "wide")= logi FALSE
 #>  - attr(*, "anomaly_df")= logi FALSE
 ```
 
 The example above pulls average temperature (`tave`) for the Continental
-US (`conus`) in 2021. Available datasets include also `tmin` (minimum
+US (`us`) in 2021. Available datasets include also `tmin` (minimum
 temperatures), `tmax` (maximum temperatures) and `prcp` (precipitation).
 More details about the nClimGrid dataset are available
 [here](https://www.ncei.noaa.gov/access/metadata/landing-page/bin/iso?id=gov.noaa.ncdc:C00332).
@@ -83,7 +83,7 @@ is stored in each data frame as attributes.
 ``` r
 nclim_normals_data <- get_nclimgrid_normals(period = "1901-2000", 
                                             measurement = "tave", 
-                                            region = "conus")
+                                            region = "us")
 ```
 
 The above example will pull the normals (typical values) for a given set
@@ -109,7 +109,7 @@ tave_anomaly %>% str
 #>  $ value: num [1:5637096] 0.128 5.434 3.588 2.816 1.442 ...
 #>  - attr(*, "year")= num 2021
 #>  - attr(*, "measurement")= chr "tave"
-#>  - attr(*, "region")= chr "conus"
+#>  - attr(*, "region")= chr "us"
 #>  - attr(*, "unit")= chr "Fahrenheit"
 #>  - attr(*, "wide")= logi FALSE
 #>  - attr(*, "anomaly_df")= logi TRUE
@@ -159,7 +159,7 @@ require(ggrepel)
 
 nclim_monthly_prcp_data <- get_nclimgrid_monthly(year = 2021, 
                                                  measurement = "prcp", 
-                                                 region = "conus")
+                                                 region = "us")
 large_us_capitals <- maps::us.cities %>% 
   filter(capital != 0, pop >= 400000) %>% 
   mutate(name = gsub(" ", ", ", name))
