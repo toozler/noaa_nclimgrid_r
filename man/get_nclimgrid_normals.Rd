@@ -7,7 +7,7 @@
 get_nclimgrid_normals(
   period = "1901-2000",
   measurement = "tave",
-  region = "conus",
+  region = "us",
   wide = FALSE,
   verbose = FALSE
 )
@@ -17,7 +17,7 @@ get_nclimgrid_normals(
 
 \item{measurement}{Measurement type (i.e. "tave", "tmax", "tmin", "prcp")}
 
-\item{region}{Region (i.e. "conus", "ak")}
+\item{region}{Region (i.e. "us", "ak")}
 
 \item{wide}{Convert to wide format, default is FALSE}
 

@@ -7,7 +7,7 @@
 get_nclimgrid_monthly(
   year,
   measurement = "tave",
-  region = "conus",
+  region = "us",
   wide = FALSE,
   verbose = FALSE
 )
@@ -17,7 +17,7 @@ get_nclimgrid_monthly(
 
 \item{measurement}{Measurement type (i.e. "tave", "tmax", "tmin", "prcp")}
 
-\item{region}{Region (i.e. "conus", "ak")}
+\item{region}{Region (i.e. "us", "ak")}
 
 \item{wide}{Convert to wide format, default is FALSE}
 
