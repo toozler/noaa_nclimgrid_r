@@ -1,7 +1,7 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-# noaaclimgrid <img src='man/figures/package_temp_icon.png' align="right" height="106" />
+# noaanclimgrid <img src='man/figures/package_temp_icon.png' align="right" height="106" />
 
 ## Overview
 
@@ -52,7 +52,7 @@ The `get_nclimgrid_*()` functions fetch this data and perform some basic
 parsing:
 
 ``` r
-nclim_monthly_data <- get_nclimgrid_monthly(year = 2021, 
+nclim_monthly_data <- get_nclimgrid_monthly(year = 2023, 
                                             measurement = "tave", 
                                             region = "us", 
                                             wide = FALSE, 
@@ -62,8 +62,8 @@ nclim_monthly_data %>% str
 #>  $ lat  : num [1:5637096] 24.6 24.6 24.6 24.6 24.6 ...
 #>  $ long : num [1:5637096] -81.8 -81.8 -81.8 -81.8 -81.8 ...
 #>  $ month: Factor w/ 12 levels "1","2","3","4",..: 1 2 3 4 5 6 7 8 9 10 ...
-#>  $ value: num [1:5637096] 69.5 75.4 76.2 79.1 81 ...
-#>  - attr(*, "year")= num 2021
+#>  $ value: num [1:5637096] 73 77.1 77.9 80.1 81.9 ...
+#>  - attr(*, "year")= num 2023
 #>  - attr(*, "measurement")= chr "tave"
 #>  - attr(*, "region")= chr "us"
 #>  - attr(*, "unit")= chr "Fahrenheit"
@@ -72,7 +72,7 @@ nclim_monthly_data %>% str
 ```
 
 The example above pulls average temperature (`tave`) for the Continental
-US (`us`) in 2021. Available datasets include also `tmin` (minimum
+US (`us`) in 2023. Available datasets include also `tmin` (minimum
 temperatures), `tmax` (maximum temperatures) and `prcp` (precipitation).
 More details about the nClimGrid dataset are available
 [here](https://www.ncei.noaa.gov/access/metadata/landing-page/bin/iso?id=gov.noaa.ncdc:C00332).
@@ -98,7 +98,7 @@ not included (i.e. your monthly measurements only cover a few months of
 the year).
 
 ``` r
-tave_anomaly <- compute_anomaly(nclimgrid_data_a =  nclim_monthly_data, 
+tave_anomaly <- compute_anomaly(nclimgrid_data_a = nclim_monthly_data, 
                                 nclimgrid_data_b = nclim_normals_data)
 
 tave_anomaly %>% str
@@ -106,8 +106,8 @@ tave_anomaly %>% str
 #>  $ lat  : num [1:5637096] 24.6 24.6 24.6 24.6 24.6 ...
 #>  $ long : num [1:5637096] -81.8 -81.8 -81.8 -81.8 -81.8 ...
 #>  $ month: Factor w/ 12 levels "1","2","3","4",..: 1 2 3 4 5 6 7 8 9 10 ...
-#>  $ value: num [1:5637096] 0.128 5.434 3.588 2.816 1.442 ...
-#>  - attr(*, "year")= num 2021
+#>  $ value: num [1:5637096] 3.62 7.11 5.28 3.79 2.29 ...
+#>  - attr(*, "year")= num 2023
 #>  - attr(*, "measurement")= chr "tave"
 #>  - attr(*, "region")= chr "us"
 #>  - attr(*, "unit")= chr "Fahrenheit"
@@ -157,7 +157,7 @@ require(maps)
 require(ggrepel)
 #> Loading required package: ggrepel
 
-nclim_monthly_prcp_data <- get_nclimgrid_monthly(year = 2021, 
+nclim_monthly_prcp_data <- get_nclimgrid_monthly(year = 2023, 
                                                  measurement = "prcp", 
                                                  region = "us")
 large_us_capitals <- maps::us.cities %>% 

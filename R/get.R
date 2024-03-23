@@ -12,6 +12,8 @@
 #' @importFrom tidyr pivot_longer
 #' @importFrom magrittr %<>% %>% set_names
 #' @importFrom glue glue
+#'
+#' @export
 get_nclimgrid_monthly <- function(year, measurement = "tave", region = "us", wide = FALSE, verbose = FALSE) {
 
   #validates inputs and stops if not valid
@@ -75,6 +77,8 @@ get_nclimgrid_monthly <- function(year, measurement = "tave", region = "us", wid
 #' @importFrom tidyr pivot_longer
 #' @importFrom magrittr %<>% %>% set_names
 #' @importFrom glue glue
+#'
+#' @export
 get_nclimgrid_normals <- function(period = "1901-2000", measurement = "tave", region = "us", wide = FALSE, verbose = FALSE) {
 
   #validates inputs and stops if not valid

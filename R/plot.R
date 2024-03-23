@@ -10,6 +10,8 @@
 #'
 #' @import ggplot2
 #' @importFrom magrittr %>%
+#'
+#' @export
 plot_nclimgrid <- function(nclimgrid_data,
                            show_states = TRUE,
                            show_counties = FALSE,
@@ -80,6 +82,7 @@ plot_nclimgrid <- function(nclimgrid_data,
 #'
 #' @importFrom tibble tribble
 #' @importFrom RColorBrewer brewer.pal
+#'
 define_color_scale <- function(nclimgrid_data) {
 
   measurement <- attr(nclimgrid_data, "measurement")
