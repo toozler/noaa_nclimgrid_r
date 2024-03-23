@@ -1,6 +1,6 @@
 # testing
-m_tave <- get_nclimgrid_monthly(2021, "tave", "conus", wide = FALSE, verbose = TRUE)
-n_tave <- get_nclimgrid_normals("1901-2000", "tave", "conus", wide = FALSE, verbose = TRUE)
+m_tave <- get_nclimgrid_monthly(2023, "tave", "us", wide = FALSE, verbose = TRUE)
+n_tave <- get_nclimgrid_normals("1901-2000", "tave", "us", wide = FALSE, verbose = TRUE)
 a_tave <- compute_anomaly(m_tave, n_tave)
 
 m_tave %>%
@@ -21,8 +21,8 @@ plot_nclimgrid_histogram(m_tave, n_tave)
 plot_nclimgrid_histogram(a_tave)
 
 #testing tmax
-m_tmax <- get_nclimgrid_monthly(2021, "tmax", "conus", wide = FALSE, verbose = TRUE)
-n_tmax <- get_nclimgrid_normals("1901-2000", "tmax", "conus", wide = FALSE, verbose = TRUE)
+m_tmax <- get_nclimgrid_monthly(2023, "tmax", "us", wide = FALSE, verbose = TRUE)
+n_tmax <- get_nclimgrid_normals("1901-2000", "tmax", "us", wide = FALSE, verbose = TRUE)
 a_tmax <- compute_anomaly(m_tmax, n_tmax)
 
 m_tmax %>%
@@ -44,8 +44,8 @@ a_tmax %>%
 
 
 # testing
-m_p <- get_nclimgrid_monthly(2021, "prcp", "conus", wide = FALSE, verbose = TRUE)
-n_p <- get_nclimgrid_normals("1901-2000", "prcp", "conus", wide = FALSE, verbose = TRUE)
+m_p <- get_nclimgrid_monthly(2023, "prcp", "us", wide = FALSE, verbose = TRUE)
+n_p <- get_nclimgrid_normals("1901-2000", "prcp", "us", wide = FALSE, verbose = TRUE)
 a_p <- compute_anomaly(m_p, n_p)
 
 m_p %>%

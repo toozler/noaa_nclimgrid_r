@@ -5,7 +5,7 @@
 #'
 validate_region <- function(region = NULL) {
 
-  valid_options <- c("ak", "conus")
+  valid_options <- c("ak", "us")
 
   if (is.null(region)) {
 

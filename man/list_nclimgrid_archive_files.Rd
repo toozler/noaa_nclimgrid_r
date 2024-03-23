@@ -2,17 +2,21 @@
 % Please edit documentation in R/utils.R
 \name{list_nclimgrid_archive_files}
 \alias{list_nclimgrid_archive_files}
-\title{List files from nClimGrid archive (years before current and previous)}
+\title{Accumulate months}
 \usage{
 list_nclimgrid_archive_files(date_pattern = "*")
 }
 \arguments{
 \item{date_pattern}{Optional regex pattern to subset list of files}
+
+\item{fun}{TODO
+List files from nClimGrid archive (years before current and previous)
+
+These files can't be guessed based on YYYYMM because they have a variable file name containg a publishing date
+
+TODO: allow get_nclimgrid_monthly() to pull from archive
+TODO: filter out duplicated months (sometimes a new version is published, keep latest)}
 }
 \description{
-These files can't be guessed based on YYYYMM because they have a variable file name containg a publishing date
-}
-\details{
-TODO: allow get_nclimgrid_monthly() to pull from archive
-TODO: filter out duplicated months (sometimes a new version is published, keep latest)
+Accumulate months
 }
